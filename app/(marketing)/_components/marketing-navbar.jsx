@@ -13,10 +13,9 @@ import { Button } from '@/components/ui/button'
 
 //** Custom imports */
 import { Icons } from '@/components/icons'
-import { siteConfig } from '@/config/site'
+import { useUserInfo } from '@/hooks/useUserInfo'
 import { ModeToggle } from '@/components/mode-toggle'
 import { Logo } from '@/components/logo/company-logo'
-import { useUserInfo } from '@/hooks/useUserInfo'
 
 const MarketingNavbar = ({ items }) => {
     //** State */
@@ -29,9 +28,7 @@ const MarketingNavbar = ({ items }) => {
         <div className='bg-slate-300 sticky top-0 py-3'>
             <div className='flex items-center justify-between container'>
                 <div className='flex'>
-                    <Link href={'/'} className='flex items-center'>
-                        <Logo />
-                    </Link>
+                    <Link href={'/'} className='flex items-center'><Logo /></Link>
                     {items?.length ? (
                         <nav className='hidden md:flex gap-6 ml-6'>
                             {items?.map((item, index) => (

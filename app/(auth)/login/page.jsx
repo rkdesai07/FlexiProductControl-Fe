@@ -39,7 +39,7 @@ const LoginPage = () => {
     validationSchema: LoginSchema,
     onSubmit: (values, action) => {
       if (userInfo?.email === values.email && userInfo?.password === values.password) {
-        router.push('/w')
+        router.push('/home')
       } else if ((userInfo?.email !== values.email) || (userInfo?.password !== values.password)) {
         toast({
           // title: "Scheduled: Catch up",

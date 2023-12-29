@@ -1,7 +1,7 @@
 //** Third party imports */
 import { ArrowRight } from 'lucide-react'
 
-//**Utils imports */
+//** Utils imports */
 import { cn } from '@/lib/utils'
 
 //** Next imports */
@@ -17,8 +17,8 @@ const MarketingPage = () => {
         <p className='text-7xl text-blue-600 font-extrabold text-center text-wrap dark:text-white'>One app to replace them all</p>
         <p className='text-2xl text-rose-900 font-bold text-center text-wrap mt-3 dark:text-white'>Get everyone working in a single platform</p>
         <p className='text-xl text-rose-900 font-normal text-center text-wrap dark:text-white'>designed to manage any type of work.</p>
-        <Button asChild className={cn('px-8 py-7 text-xl mt-2')}>
-          <Link href='/signup'>Get Started. It's Free <ArrowRight /> </Link>
+        <Button asChild className={cn('p-6 text-xl mt-2')}>
+          <Link href='/home'>Get Started. It's Free <ArrowRight /></Link>
         </Button>
       </div>
     </div>
