@@ -1,6 +1,13 @@
+//** globals css imports */
 import '../styles/globals.css'
+
+//** Next imports */
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from "@/components/theme-provider"
+
+//** shadcn components imports */
+import { Toaster } from '@/components/ui/toaster'
+import { ThemeProvider } from "@/components/provider/theme-provider"
+import { ModalProvider } from '@/components/provider/modal-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,11 +24,13 @@ export default function RootLayout({ children }) {
         <body>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
             {children}
+            <ModalProvider />
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
