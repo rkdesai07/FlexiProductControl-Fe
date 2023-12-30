@@ -31,7 +31,7 @@ const MainNavbar = ({ isCollapsed, setIsCollapsed }) => {
             <div className='container flex justify-between items-center'>
                 <div className='capitalize text-xl font-medium'>{segment}</div>
                 <div className='mx-4 flex items-center'>
-                    <Button onClick={onOpenLogin} variant={'default'} className={cn('mx-2 h-8 dark:text-white')}>Login</Button>
+                    {/* <Button onClick={onOpenLogin} variant={'default'} className={cn('mx-2 h-8 dark:text-white')}>Login</Button> */}
                     <UserInfo />
                     <ModeToggle />
                 </div>

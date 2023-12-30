@@ -25,17 +25,17 @@ const MarketingNavbar = ({ items }) => {
     const { isOpenLogin, onOpenLogin, onCloseLogin, isOpenSignup, onOpenSignup, onCloseSignup } = useUserInfo()
 
     return (
-        <div className='bg-slate-300 sticky top-0 py-3'>
+        <div className='bg-primary/40 sticky top-0 py-3'>
             <div className='flex items-center justify-between container'>
                 <div className='flex'>
-                    <Link href={'/'} className='flex items-center'><Logo /></Link>
+                    <Link href={'/'} className='flex items-center cursor-pointer'><Logo /></Link>
                     {items?.length ? (
                         <nav className='hidden md:flex gap-6 ml-6'>
                             {items?.map((item, index) => (
                                 <Link
                                     key={index}
                                     href={item?.href}
-                                    className={cn('flex items-center text-lg font-medium sm:text-sm transition-colors dark:text-black hover:text-blue-700',
+                                    className={cn('flex items-center text-lg font-medium sm:text-sm transition-colors dark:text-white hover:text-blue-700',
                                         item.href.startsWith(`/${segment}` && "text-blue-600"
                                         )
                                     )}
