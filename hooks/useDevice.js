@@ -1,6 +1,6 @@
 "use client";
 
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useMediaQuery } from "usehooks-ts";
 
 const useDevice = () => {
     const smallDevice = useMediaQuery("only screen and (max-width : 360px)");

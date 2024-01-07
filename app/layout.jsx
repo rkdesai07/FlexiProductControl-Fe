@@ -1,6 +1,9 @@
 //** globals css imports */
 import '../styles/globals.css'
 
+//** React imports */
+import { Suspense } from 'react'
+
 //** Next imports */
 import { Inter } from 'next/font/google'
 
@@ -8,6 +11,9 @@ import { Inter } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from "@/components/provider/theme-provider"
 import { ModalProvider } from '@/components/provider/modal-provider'
+
+//** Custom imports */
+import LoadingSpinner from '@/components/common/spinner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,7 +34,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
             <ModalProvider />
             <Toaster />
           </ThemeProvider>

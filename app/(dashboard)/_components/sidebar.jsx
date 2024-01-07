@@ -15,16 +15,16 @@ import { cn } from '@/lib/utils';
 
 //** Custom imports */
 // import WorkspaceInfo from './workspace-info';
-import { useMediaQuery } from '@uidotdev/usehooks';
+import { useMediaQuery } from 'usehooks-ts';
 import { Logo } from '@/components/logo/company-logo'
 
 
 export const MenuItem = ({ icon: Icon, label, active, isCollapsed }) => {
     return (
-        <div className={cn('mx-2 mt-[2px] outline-none')}>
+        <div className={cn('mx-2 mt-[2px] outline-none transition-all')}>
             <div className={cn('flex items-center min-h-[27px] w-full gap-x-2 py-2 hover:bg-primary/10 dark:hover:hover:bg-primary/50 rounded-sm transition-all cursor-pointer text-muted-foreground dark:text-white', active && 'bg-primary/15 dark:bg-primary/50')}>
                 <Icon className={'shrink-0 w-[18px] h-[18px] ml-2'} />
-                {isCollapsed && <span className='text-start leading-none text-sm font-medium line-clamp-1'>{label}</span>}
+                {isCollapsed && <span className='text-start leading-0 text-sm font-medium line-clamp-1'>{label}</span>}
             </div>
         </div>
     )
@@ -107,14 +107,14 @@ const DashboardSidebar = ({ isCollapsed, setIsCollapsed }) => {
 
     return (
         <aside className={cn('bg-secondary dark:bg-secondary/50 h-screen flex flex-col relative transition-all ease-in-out duration-300 group/sidebar no-scrollbar overflow-y-auto', (isCollapsed ? 'w-60' : 'w-12'))}>
-            <div className='sticky top-0 border-b'>
+            <div className='sticky top-0'>
                 {isCollapsed &&
                     <>
-                        {<Link href={'/home'}><div className='bg-secondary flex items-center p-2 pl-3 h-[50px] border-r border-primary/10'><Logo /></div></Link>}
-                        <div role={'button'} onClick={handleSidebar} className={cn('absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition-all cursor-pointer hover:bg-neutral-300 hover:rounded-sm text-muted-foreground', isMobile && "opacity-100")}><ChevronsLeft /></div>
+                        {<Link href={'/home'}><div className='bg-secondary flex items-center p-3 pl-3 h-[70px] border-r border-primary/10'><Logo /></div></Link>}
+                        <div role={'button'} onClick={handleSidebar} className={cn('absolute top-6 right-2 opacity-0 group-hover/sidebar:opacity-100 transition-all cursor-pointer hover:bg-neutral-300 hover:rounded-sm text-muted-foreground', isMobile && "opacity-100")}><ChevronsLeft /></div>
                     </>
                 }
-                {!isCollapsed && <div role={'button'} onClick={handleSidebar} className={'flex items-center py-3 justify-center text-muted-foreground'}><ChevronsRight className='hover:bg-neutral-300 hover:rounded-sm' /></div>}
+                {!isCollapsed && <div role={'button'} onClick={handleSidebar} className={'flex items-center py-6 justify-center text-muted-foreground border-r border-primary/10'}><ChevronsRight className='hover:bg-neutral-300 hover:rounded-sm' /></div>}
             </div>
             {/* <WorkspaceInfo /> */}
             <div className='mt-2'>
