@@ -106,15 +106,15 @@ const DashboardSidebar = ({ isCollapsed, setIsCollapsed }) => {
     }
 
     return (
-        <aside className={cn('bg-secondary dark:bg-secondary/50 h-screen flex flex-col relative transition-all ease-in-out duration-300 group/sidebar no-scrollbar overflow-y-auto', (isCollapsed ? 'w-60' : 'w-12'))}>
-            <div className='sticky top-0'>
+        <aside className={cn('bg-secondary dark:bg-secondary/50 h-screen flex flex-col relative transition-all ease-in-out duration-300 group/sidebar no-scrollbar overflow-y-auto', (isCollapsed ? 'w-full md:w-60' : 'w-14'))}>
+            <div className='sticky top-0 border-b'>
                 {isCollapsed &&
                     <>
-                        {<Link href={'/home'}><div className='bg-secondary flex items-center p-3 pl-3 h-[70px] border-r border-primary/10'><Logo /></div></Link>}
-                        <div role={'button'} onClick={handleSidebar} className={cn('absolute top-6 right-2 opacity-0 group-hover/sidebar:opacity-100 transition-all cursor-pointer hover:bg-neutral-300 hover:rounded-sm text-muted-foreground', isMobile && "opacity-100")}><ChevronsLeft /></div>
+                        {<Link href={'/home'}><div className='bg-secondary flex items-center pl-3 h-[48px] border-r border-primary/10'><Logo /></div></Link>}
+                        <div role={'button'} onClick={handleSidebar} className={cn('absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition-all cursor-pointer hover:bg-neutral-300 hover:rounded-sm text-muted-foreground', (isMobile || isTablet) && "opacity-100")}><ChevronsLeft /></div>
                     </>
                 }
-                {!isCollapsed && <div role={'button'} onClick={handleSidebar} className={'flex items-center py-6 justify-center text-muted-foreground border-r border-primary/10'}><ChevronsRight className='hover:bg-neutral-300 hover:rounded-sm' /></div>}
+                {!isCollapsed && <div role={'button'} onClick={handleSidebar} className={'flex items-center py-3 justify-center text-muted-foreground border-r border-primary/10'}><ChevronsRight className='hover:bg-neutral-300 hover:rounded-sm' /></div>}
             </div>
             {/* <WorkspaceInfo /> */}
             <div className='mt-2'>

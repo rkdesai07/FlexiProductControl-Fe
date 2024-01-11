@@ -1,54 +1,66 @@
 "use client"
 
 //** React imports */
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 
 //** Third party imports */
 import { useFormik } from 'formik'
+import { format } from "date-fns"
 import { Eye, EyeOff } from 'lucide-react'
+import { Calendar as CalendarIcon } from "lucide-react"
 
 //** Next imports */
 import { useRouter } from 'next/navigation'
 
 //** shadcn-ui imports */
 import { cn } from '@/lib/utils'
-import { Button } from "@/components/ui/button"
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetFooter,
-    SheetHeader,
-} from "@/components/ui/sheet"
+import { useToast } from '../ui/use-toast'
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader } from "@/components/ui/sheet"
 
 //** Custom imports */
-import { useUserManagement } from '@/hooks/useUserManage'
-import { AddUserInitialValues, AddUserSchema } from '@/schema/add-user-schema'
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+import { userSchema } from '@/schema/user-schema'
+import useUserStore from '@/hooks/use-user-store'
 
 
-const AddUser = () => {
+const AddUserModal = () => {
     //** State */
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     //** Hooks */
     const router = useRouter()
-    const { isOpenUserDrawer, onOpenUserDrawer, onCloseUserDrawer } = useUserManagement()
+    const { toast } = useToast()
+    const {
+        isOpenUserDrawer,
+        onCloseUserDrawer,
+        userInitialValue,
+        addUser,
+        userData,
+        deleteUser
+    } = useUserStore()
 
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit, se } = useFormik({
-        initialValues: AddUserInitialValues,
-        validationSchema: AddUserSchema,
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
+        initialValues: userInitialValue,
+        validationSchema: userSchema,
         onSubmit: (values, action) => {
-            alert(values)
+            setIsLoading(true);
+            if (Object.keys(errors).length === 0) {
+                let temp = { ...values, id: userData.length + 1 }
+                addUser(temp);
+                action.resetForm(userInitialValue);
+                toast({
+                    title: "User added successfully.",
+                });
+                onCloseUserDrawer();
+                setIsLoading(false);
+            } else {
+                setIsLoading(false)
+            }
         }
     })
 
@@ -56,11 +68,11 @@ const AddUser = () => {
         <Sheet open={isOpenUserDrawer} onOpenChange={onCloseUserDrawer}>
             <SheetContent className="sm:max-w-md">
                 <SheetHeader>
-                    <div className='text-2xl font-bold text-start mt-3'>Add User</div>
+                    <div className='text-2xl font-bold text-start'>Add User</div>
                 </SheetHeader>
                 <form onSubmit={handleSubmit}>
-                    <div className='grid gap-5 mt-5'>
-                        <div>
+                    <div className='grid gap-3 my-5'>
+                        <div className='relative'>
                             <Input
                                 name='firstname'
                                 type='text'
@@ -119,12 +131,10 @@ const AddUser = () => {
                                     <Calendar
                                         mode="single"
                                         selected={values?.dob}
-                                        // onChange={handleChange}
-                                        onSelect={handleChange}
+                                        onSelect={(value) => setFieldValue("dob", new Date(value))}
                                     />
                                 </PopoverContent>
                             </Popover>
-
                         </div>
                         <div>
                             <Input
@@ -161,17 +171,36 @@ const AddUser = () => {
                                 {(errors.password && touched.password) ? <p className='text-red-800 text-xs mx-2 '>{errors.password}</p> : null}
                             </span>
                         </div>
-                        <div className='space-x-4 flex justify-end'>
-                            <SheetFooter>
-                                <SheetClose><Button type={'button'} onClick={onCloseUserDrawer} variant={"outline"}>Cancel</Button></SheetClose>
-                                <Button disabled={isLoading} type="submit">Submit</Button>
-                            </SheetFooter>
+                        <div className='relative'>
+                            <Input
+                                name='confirm_password'
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                placeholder='Confirm Password'
+                                value={values.confirm_password}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                disabled={isLoading}
+                            />
+                            <span
+                                className='absolute top-3 right-5'
+                                role='button'
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            >
+                                {showConfirmPassword ? <Eye size={16} /> : <EyeOff size={16} />}
+                            </span>
+                            <span>
+                                {(errors.confirm_password && touched.confirm_password) ? <p className='text-red-800 text-xs mx-2 '>{errors.confirm_password}</p> : null}
+                            </span>
                         </div>
                     </div>
+                    <SheetFooter>
+                        <SheetClose><Button onClick={onCloseUserDrawer} variant={"outline"}>Cancel</Button></SheetClose>
+                        <Button disabled={isLoading} type="submit">Submit</Button>
+                    </SheetFooter>
                 </form>
             </SheetContent>
         </Sheet>
     )
 }
 
-export default AddUser
+export default AddUserModal

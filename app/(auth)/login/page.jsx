@@ -44,16 +44,18 @@ const LoginPage = () => {
     validationSchema: LoginSchema,
     onSubmit: (values, action) => {
       setIsLoading(true)
-      if (credential?.email === values.email && credential?.pwd === values.password) {
-        router.push('/home');
-        setIsLoading(false);
-      } else if ((credential?.email !== values.email) || (credential?.pwd !== values.password)) {
-        toast({
-          variant: 'destructive',
-          description: "Invalid email or Password",
-        });
-        setIsLoading(false);
-      }
+      setTimeout(() => {
+        if (credential?.email === values.email && credential?.pwd === values.password) {
+          router.push('/home');
+          setIsLoading(false);
+        } else if ((credential?.email !== values.email) || (credential?.pwd !== values.password)) {
+          toast({
+            variant: 'destructive',
+            description: "Invalid email or Password",
+          });
+          setIsLoading(false);
+        }
+      }, 6000)
     }
   })
 

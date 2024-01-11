@@ -14,9 +14,9 @@ const MainLayout = ({ children }) => {
   return (
     <div className=' flex h-screen overflow-hidden'>
       <DashboardSidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <div className='flex h-screen flex-col flex-1'>
+      <div className='flex h-screen flex-col flex-1 overflow-hidden'>
         <MainNavbar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-        <main className='flex flex-col overflow-y-auto px-4'>{children}</main>
+        <main className='px-4 h-full w-full flex flex-1 flex-col'>{children}</main>
       </div>
     </div>
   )
