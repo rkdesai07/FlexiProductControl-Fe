@@ -22,11 +22,8 @@ const UserInfo = () => {
 
     //** Hooks */
     const router = useRouter();
-    const { onOpenLogin } = useUserInfo();
 
     const handelLogOut = () => {
-        // localStorage.removeItem('userInfo');
-        onOpenLogin();
         router.push('/');
     }
 

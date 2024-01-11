@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 //** Custom imports */
 import LoginModal from '../modals/login-modal'
 import SignUpModal from '../modals/signup-modal'
+import AddUser from '../modals/add-user'
 
 export const ModalProvider = () => {
   //** State */
@@ -23,6 +24,7 @@ export const ModalProvider = () => {
     <>
       <LoginModal />
       <SignUpModal />
+      <AddUser />
     </>
   )
 }
