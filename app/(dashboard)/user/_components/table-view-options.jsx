@@ -22,7 +22,7 @@ export const DataTableViewOptions = ({ table }) => {
                     className="ml-auto hidden lg:flex"
                 >
                     <EyeOff className="mr-2 h-4 w-4" />
-                    Columns
+                    Hide/Show
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[150px]">

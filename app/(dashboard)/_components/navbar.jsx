@@ -27,7 +27,7 @@ const MainNavbar = ({ isCollapsed, setIsCollapsed }) => {
     }
 
     return (
-        <nav className='px:3 md:px-6 flex items-center justify-between bg-secondary h-[50px] py-3'>
+        <nav className='px:3 md:px-6 sticky top-0 bg-secondary z-50 h-[50px] py-3 flex items-center justify-between'>
             <div className='capitalize text-sm md:text-xl font-medium'>{'Devki Nandan Trading'}</div>
             <div className='mx-4 flex items-center'>
                 <UserInfo />
