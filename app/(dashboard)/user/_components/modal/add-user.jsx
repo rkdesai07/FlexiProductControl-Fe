@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 
 //** shadcn-ui imports */
 import { cn } from '@/lib/utils'
-import { useToast } from '../ui/use-toast'
+import { useToast } from '../../../../../components/ui/use-toast'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -25,12 +25,11 @@ import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader } from "@/com
 import { userSchema } from '@/schema/user-schema'
 import useUserStore from '@/hooks/use-user-store'
 
-
 const AddUserModal = () => {
     //** State */
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    // const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     //** Hooks */
     const router = useRouter()
@@ -39,23 +38,30 @@ const AddUserModal = () => {
         isOpenUserDrawer,
         onCloseUserDrawer,
         userInitialValue,
-        addUser,
         userData,
+        addUser,
+        updateUser,
         deleteUser
     } = useUserStore()
 
+    // console.log('userInitialValue', userInitialValue)
     const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
         initialValues: userInitialValue,
         validationSchema: userSchema,
+        enableReinitialize: true,
         onSubmit: (values, action) => {
             setIsLoading(true);
             if (Object.keys(errors).length === 0) {
-                let temp = { ...values, id: userData.length + 1 }
-                addUser(temp);
+                if (values?.id !== "" && values?.id !== null) {
+                    updateUser(values?.id, values);
+                } else if (values?.id === "") {
+                    let temp = { ...values, id: userData.length + 1 }
+                    addUser(temp);
+                    toast({
+                        title: "User added successfully.",
+                    });
+                }
                 action.resetForm(userInitialValue);
-                toast({
-                    title: "User added successfully.",
-                });
                 onCloseUserDrawer();
                 setIsLoading(false);
             } else {
@@ -64,6 +70,8 @@ const AddUserModal = () => {
         }
     })
 
+    // console.log('error', errors)
+
     return (
         <Sheet open={isOpenUserDrawer} onOpenChange={onCloseUserDrawer}>
             <SheetContent className="sm:max-w-md">
@@ -71,7 +79,7 @@ const AddUserModal = () => {
                     <div className='text-2xl font-bold text-start'>Add User</div>
                 </SheetHeader>
                 <form onSubmit={handleSubmit}>
-                    <div className='grid gap-3 my-5'>
+                    <div className='grid gap-5 my-5'>
                         <div className='relative'>
                             <Input
                                 name='firstname'
@@ -171,7 +179,7 @@ const AddUserModal = () => {
                                 {(errors.password && touched.password) ? <p className='text-red-800 text-xs mx-2 '>{errors.password}</p> : null}
                             </span>
                         </div>
-                        <div className='relative'>
+                        {/* <div className='relative'>
                             <Input
                                 name='confirm_password'
                                 type={showConfirmPassword ? 'text' : 'password'}
@@ -191,10 +199,10 @@ const AddUserModal = () => {
                             <span>
                                 {(errors.confirm_password && touched.confirm_password) ? <p className='text-red-800 text-xs mx-2 '>{errors.confirm_password}</p> : null}
                             </span>
-                        </div>
+                        </div> */}
                     </div>
                     <SheetFooter>
-                        <SheetClose><Button onClick={onCloseUserDrawer} variant={"outline"}>Cancel</Button></SheetClose>
+                        <SheetClose><Button type='button' variant={"outline"}>Cancel</Button></SheetClose>
                         <Button disabled={isLoading} type="submit">Submit</Button>
                     </SheetFooter>
                 </form>

@@ -37,6 +37,7 @@ const UserTable = () => {
     const {
         userData,
         editUser,
+        updateUser,
         deleteUser,
         onOpenUserDrawer,
     } = useUserStore()
@@ -187,13 +188,13 @@ const UserTable = () => {
                         <div className="flex items-center gap-x-4 cursor-pointer">
                             <Button
                                 variant='icon'
-                                onClick={() => deleteUser(row.original.id)}
+                                onClick={() => editUser(row.original.id, onOpenUserDrawer)}                      
                                 className='hover:text-blue-500 transition-all hover:bg-primary/20 hover:rounded-sm'>
                                 <Pencil className="w-[15px] h-[15px]" />
                             </Button>
                             <Button
                                 variant='icon'
-                                onClick={() => editUser(row.original.id)}
+                                onClick={() => deleteUser(row.original.id)}                          
                                 className='hover:text-blue-500 transition-all hover:bg-primary/20 hover:rounded-sm'>
                                 <Trash2 className="w-[15px] h-[15px]" />
                             </Button>
@@ -222,8 +223,8 @@ const UserTable = () => {
 
     return (
         <>
-            <div className='h-full w-[100%] cursor-default'>
-                <div className="flex items-center justify-between py-2 sticky top-0 bg-white">
+            <div className='h-full w-full overflow-auto cursor-default'>
+                <div className="flex items-center justify-between py-5 sticky top-0 bg-white">
                     <h2 className='text-xl font-medium'>User Management</h2>
                     <div className='flex items-center gap-x-4 relative'>
                         <Input
