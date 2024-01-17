@@ -203,7 +203,7 @@ const AddUserModal = () => {
                     </div>
                     <SheetFooter>
                         <SheetClose><Button type='button' variant={"outline"}>Cancel</Button></SheetClose>
-                        <Button disabled={isLoading} type="submit">Submit</Button>
+                        <Button disabled={isLoading} type="submit">{userInitialValue.id === "" ? "Submit" : "Update"}</Button>
                     </SheetFooter>
                 </form>
             </SheetContent>

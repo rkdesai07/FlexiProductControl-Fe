@@ -44,7 +44,7 @@ const useUserStore = create((set) => ({
 
     addUser: (user) => set((state) => ({ userData: [...state.userData, user] })),
 
-    editUser: (userId, drawerOpen) => {
+    editUser: (userId) => {
         set((state) => {
             const userArray = [...state.userData] || []
             const userInitialValue = userArray.find((user) => user.id === userId);
@@ -55,16 +55,16 @@ const useUserStore = create((set) => ({
         });
     },
 
-    updateUser: (userId, updateUser) => {
+    updateUser: (userId, updatedData) => {
         set((state) => {
             const userArray = [...state.userData] || [];
             const index = userArray.findIndex((user) => user.id === userId);
             if (index !== -1) {
                 // User found, update the array without changing the index
-                userArray[index] = updateUser;
+                userArray[index] = updatedData;
             } else {
                 // User not found, add to the array
-                userArray.push(updateUser);
+                userArray.push(updatedData);
             }
             return {
                 userData: [...userArray],
