@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import LoginModal from '../modals/login-modal'
 import SignUpModal from '../modals/signup-modal'
 import AddUser from '../../app/(dashboard)/user/_components/modal/add-user'
+import AddProductCategoryModal from '@/app/(dashboard)/product-category/_components/modal/add-product-category'
 
 export const ModalProvider = () => {
   //** State */
@@ -25,6 +26,7 @@ export const ModalProvider = () => {
       <LoginModal />
       <SignUpModal />
       <AddUser />
+      <AddProductCategoryModal />
     </>
   )
 }
