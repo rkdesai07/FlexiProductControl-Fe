@@ -188,7 +188,7 @@ const UserTable = () => {
                         <div className="flex items-center gap-x-4 cursor-pointer">
                             <Button
                                 variant='icon'
-                                onClick={() => editUser(row.original.id, onOpenUserDrawer)}                      
+                                onClick={() => editUser(row.original.id)}             
                                 className='hover:text-blue-500 transition-all hover:bg-primary/20 hover:rounded-sm'>
                                 <Pencil className="w-[15px] h-[15px]" />
                             </Button>
@@ -224,7 +224,7 @@ const UserTable = () => {
     return (
         <>
             <div className='h-full w-full overflow-auto cursor-default'>
-                <div className="flex items-center justify-between py-5 sticky top-0 bg-white">
+                <div className="flex items-center justify-between py-5 sticky top-0 bg-white dark:bg-black z-50">
                     <h2 className='text-xl font-medium'>User Management</h2>
                     <div className='flex items-center gap-x-4 relative'>
                         <Input
@@ -252,7 +252,7 @@ const UserTable = () => {
                                     <TableRow key={headerGroup.id}>
                                         {headerGroup.headers.map((header) => {
                                             return (
-                                                <TableHead key={header.id} className='sticky top-0 bg-white'>
+                                                <TableHead key={header.id} className='sticky top-0 bg-white dark:bg-black'>
                                                     {header.isPlaceholder
                                                         ? null
                                                         : flexRender(
