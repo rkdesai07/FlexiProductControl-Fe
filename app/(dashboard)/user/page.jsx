@@ -188,13 +188,13 @@ const UserTable = () => {
                         <div className="flex items-center gap-x-4 cursor-pointer">
                             <Button
                                 variant='icon'
-                                onClick={() => editUser(row.original.id)}
+                                onClick={() => editUser(row.original.id)}             
                                 className='hover:text-blue-500 transition-all hover:bg-primary/20 hover:rounded-sm'>
                                 <Pencil className="w-[15px] h-[15px]" />
                             </Button>
                             <Button
                                 variant='icon'
-                                onClick={() => deleteUser(row.original.id)}
+                                onClick={() => deleteUser(row.original.id)}                          
                                 className='hover:text-blue-500 transition-all hover:bg-primary/20 hover:rounded-sm'>
                                 <Trash2 className="w-[15px] h-[15px]" />
                             </Button>
