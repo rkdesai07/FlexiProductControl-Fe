@@ -12,11 +12,15 @@ const MainLayout = ({ children }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
-    <div className='max-w-screen-2xl max-h-[98vh] mx-auto flex h-screen overflow-hidden border-2'>
+    <div className='flex h-screen overflow-hidden'>
       <DashboardSidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <div className="flex flex-1 flex-col">
+      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         <MainNavbar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-        <main className='flex flex-col flex-1 px-5 overflow-auto'>{children}</main>
+        <main>
+          <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            {children}
+          </div>
+        </main>
       </div>
     </div>
   )

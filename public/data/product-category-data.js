@@ -4,7 +4,7 @@ export const ProductCategoryData = [
         categoryName: 'Milk',
         description: 'This product used for home.',
         brandName: 'Amul',
-        // image: 'https://fastly.picsum.photos/id/997/200/300.jpg?hmac=NeXq5MvhpKvGEq_X3jULp2C3Lg-8IQK8bdtnyJeXDIQ',
+        image: 'https://fastly.picsum.photos/id/997/200/300.jpg?hmac=NeXq5MvhpKvGEq_X3jULp2C3Lg-8IQK8bdtnyJeXDIQ',
     },
 
     {

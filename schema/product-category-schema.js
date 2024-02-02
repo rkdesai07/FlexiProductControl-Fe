@@ -13,7 +13,7 @@ export const ProductCategorySchema = Yup.object().shape({
         .string()
         .notRequired(),
 
-    // productImage: Yup
-    //     .object()
-    //     .notRequired()
+    productImage: Yup
+        .object()
+        .notRequired()
 })

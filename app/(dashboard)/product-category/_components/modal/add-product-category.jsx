@@ -4,7 +4,11 @@
 import React, { useState } from 'react'
 
 //** Third party imports */
-import { useFormik } from 'formik'
+import { useFormik } from 'formik';
+import { Trash2 } from 'lucide-react';
+import Dropzone from 'react-dropzone';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css'
 
 //** Next imports */
 import { useRouter } from 'next/navigation'
@@ -21,18 +25,18 @@ import { ProductCategorySchema } from '@/schema/product-category-schema'
 
 const AddProductCategoryModal = () => {
     //** State */
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     //** Hooks */
     const router = useRouter()
     const { toast } = useToast()
     const {
-        isOpenProductCategoryDrawer,
-        onCloseProductCategoryDrawer,
         addProductCategory,
         productCategoryData,
+        updateProductCategory,
         productCategoryInitialValue,
-        updateProductCategory
+        isOpenProductCategoryDrawer,
+        onCloseProductCategoryDrawer,
     } = useProductCategory()
 
     // console.log('userInitialValue', userInitialValue)
@@ -61,7 +65,8 @@ const AddProductCategoryModal = () => {
         }
     })
 
-    // console.log('erorr', errors)
+    // console.log('errors', errors)
+    // console.log('values', values)
 
 
     return (
@@ -113,6 +118,37 @@ const AddProductCategoryModal = () => {
                                 {(errors.brandName && touched.brandName) ? <p className='text-red-800 text-xs mx-2 '>{errors.brandName}</p> : null}
                             </span>
                         </div>
+                        {values?.image?.length === 0 ?
+                            <div>
+                                <Dropzone onDrop={acceptedFiles => setFieldValue('image', acceptedFiles)}>
+                                    {({ getRootProps, getInputProps }) => (
+                                        <section>
+                                            <div {...getRootProps()}>
+                                                <input {...getInputProps()} />
+                                                <div className='flex justify-end'><Button type='button'>Upload image</Button></div>
+                                            </div>
+                                        </section>
+                                    )}
+                                </Dropzone>
+                            </div>
+                            : <>
+                                {values.image && values.image.map((item, index) => {
+                                    return (
+                                        <div key={item} className='flex items-center'>
+                                            <div>
+                                                <Zoom>
+                                                    <img
+                                                        src={URL.createObjectURL(item)}
+                                                        width={50}
+                                                        height={50}
+                                                    />
+                                                </Zoom>
+                                            </div>
+                                            <Trash2 />
+                                        </div>
+                                    )
+                                })}
+                            </>}
                     </div>
                     <SheetFooter>
                         <SheetClose><Button type='button' variant={"outline"}>Cancel</Button></SheetClose>

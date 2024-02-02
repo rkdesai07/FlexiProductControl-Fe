@@ -5,8 +5,10 @@ import React, { useMemo, useState } from 'react'
 
 //** Third party imports */
 import { format } from 'date-fns'
-import 'react-perfect-scrollbar/dist/css/styles.css';
+import Zoom from 'react-medium-image-zoom';
 import ScrollBar from 'react-perfect-scrollbar';
+import 'react-medium-image-zoom/dist/styles.css'
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import { Pencil, Plus, Search, Trash2, ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { flexRender, getCoreRowModel, useReactTable, getSortedRowModel, getFilteredRowModel } from "@tanstack/react-table"
 
@@ -27,6 +29,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 //** Custom imports */
 import { DataTableViewOptions } from './_components/table-view-options'
 import useProductCategory from '@/hooks/use-product-category-store';
+import Image from 'next/image';
 
 const ProductCategoryTable = () => {
   //** State */
@@ -38,7 +41,7 @@ const ProductCategoryTable = () => {
     productCategoryData,
     editProductCategory,
     deleteProductCategory,
-} = useProductCategory()
+  } = useProductCategory()
 
 
   const columns = useMemo(
@@ -131,7 +134,8 @@ const ProductCategoryTable = () => {
       },
 
       {
-        accessorKey: "productImage",
+        id: 'image',
+        accessorKey: "image",
         header: ({ table, column }) => {
           return (
             <div
@@ -144,6 +148,19 @@ const ProductCategoryTable = () => {
             </div>
           )
         },
+        cell: ({ row, getValue }) => {
+          return (
+            <div className='max-w-10 max-h-10 flex items-center'>
+              <Zoom>
+                <img
+                  src={row.original.image}
+                  width={40}
+                  height={40}
+                />
+              </Zoom>
+            </div>
+          )
+        }
       },
 
       {
